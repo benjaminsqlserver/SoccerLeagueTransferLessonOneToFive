@@ -1,0 +1,385 @@
+{
+  "components": [
+    {
+      "components": [
+        {
+          "components": [
+            {
+              "class": "col-md-12",
+              "components": [
+                {
+                  "components": [
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "TeamName",
+                              "name": "TeamNameLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Team Name",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "maxLength": 100,
+                              "name": "TeamName",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "type": "textbox",
+                              "value": "${clubdetail.TeamName}",
+                              "valueType": "string"
+                            },
+                            {
+                              "component": "TeamName",
+                              "name": "TeamNameRequiredValidator",
+                              "style": {
+                                "position": "absolute"
+                              },
+                              "text": "Team Name is required",
+                              "type": "required-validator"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "HomeGround",
+                              "name": "HomeGroundLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Home Ground",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "maxLength": 50,
+                              "name": "HomeGround",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "type": "textbox",
+                              "value": "${clubdetail.HomeGround}",
+                              "valueType": "string"
+                            },
+                            {
+                              "component": "HomeGround",
+                              "name": "HomeGroundRequiredValidator",
+                              "style": {
+                                "position": "absolute"
+                              },
+                              "text": "Home Ground is required",
+                              "type": "required-validator"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "RegisteredOfficeAddress",
+                              "name": "RegisteredOfficeAddressLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Registered Office Address",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "name": "RegisteredOfficeAddress",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "type": "textbox",
+                              "value": "${clubdetail.RegisteredOfficeAddress}",
+                              "valueType": "string"
+                            },
+                            {
+                              "component": "RegisteredOfficeAddress",
+                              "name": "RegisteredOfficeAddressRequiredValidator",
+                              "style": {
+                                "position": "absolute"
+                              },
+                              "text": "Registered Office Address is required",
+                              "type": "required-validator"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "ContactEmail",
+                              "name": "ContactEmailLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Contact Email",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "maxLength": 50,
+                              "name": "ContactEmail",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "type": "textbox",
+                              "value": "${clubdetail.ContactEmail}",
+                              "valueType": "string"
+                            },
+                            {
+                              "component": "ContactEmail",
+                              "name": "ContactEmailRequiredValidator",
+                              "style": {
+                                "position": "absolute"
+                              },
+                              "text": "Contact Email is required",
+                              "type": "required-validator"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "ContactTelephone",
+                              "name": "ContactTelephoneLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Contact Telephone",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "maxLength": 50,
+                              "name": "ContactTelephone",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "type": "textbox",
+                              "value": "${clubdetail.ContactTelephone}",
+                              "valueType": "string"
+                            },
+                            {
+                              "component": "ContactTelephone",
+                              "name": "ContactTelephoneRequiredValidator",
+                              "style": {
+                                "position": "absolute"
+                              },
+                              "text": "Contact Telephone is required",
+                              "type": "required-validator"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "ClubLogo",
+                              "name": "ClubLogoLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Club Logo",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "chooseText": "Upload Club Logo",
+                              "name": "ClubLogo",
+                              "type": "file-input",
+                              "value": "${clubdetail.ClubLogo}"
+                            },
+                            {
+                              "component": "ClubLogo",
+                              "name": "requiredValidator0",
+                              "text": "Club Logo is required",
+                              "type": "required-validator"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col offset-sm-3",
+                          "components": [
+                            {
+                              "buttonStyle": "primary",
+                              "buttonType": "submit",
+                              "icon": "save",
+                              "text": "Save",
+                              "type": "button"
+                            },
+                            {
+                              "buttonStyle": "light",
+                              "events": {
+                                "click": [
+                                  {
+                                    "type": "close-popup"
+                                  }
+                                ]
+                              },
+                              "text": "Cancel",
+                              "type": "button"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "type": "row"
+                    }
+                  ],
+                  "data": "${clubdetail}",
+                  "events": {
+                    "submit": [
+                      {
+                        "error": [
+                          {
+                            "detail": "Unable to create new ClubDetail!",
+                            "severity": "error",
+                            "summary": "Error",
+                            "type": "notify"
+                          }
+                        ],
+                        "name": "conData.createClubDetail",
+                        "parameters": [
+                          {
+                            "name": "ClubDetail",
+                            "value": "${clubdetail}"
+                          }
+                        ],
+                        "then": [
+                          {
+                            "result": "${clubdetail}",
+                            "type": "close-popup"
+                          }
+                        ],
+                        "type": "invoke"
+                      }
+                    ]
+                  },
+                  "itemType": "SoccerLeagueTransferApp.Models.ConData.ClubDetail",
+                  "name": "form0",
+                  "type": "template-form",
+                  "visible": "${clubdetail != null}"
+                }
+              ],
+              "type": "col"
+            }
+          ],
+          "type": "row"
+        }
+      ],
+      "container": "main",
+      "type": "content"
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "clubdetail",
+        "type": "set",
+        "value": "new SoccerLeagueTransferApp.Models.ConData.ClubDetail(){}",
+        "valueType": "SoccerLeagueTransferApp.Models.ConData.ClubDetail"
+      }
+    ]
+  },
+  "layout": "Main",
+  "name": "Add Club Detail"
+}

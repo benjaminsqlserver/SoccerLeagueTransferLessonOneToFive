@@ -1,0 +1,48 @@
+﻿@page "/"
+@page "/club-detail"
+@layout MainLayout
+@inherits SoccerLeagueTransferApp.Pages.ClubDetailComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using SoccerLeagueTransferApp.Models.ConData
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="Club Detail">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@Button0Click">
+        </RadzenButton>
+        <RadzenGrid @ref="grid0" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@getClubDetailsResult" TItem="SoccerLeagueTransferApp.Models.ConData.ClubDetail" RowSelect="@Grid0RowSelect">
+          <Columns>
+            <RadzenGridColumn TItem="SoccerLeagueTransferApp.Models.ConData.ClubDetail" Property="TeamID" Title="Team ID">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="SoccerLeagueTransferApp.Models.ConData.ClubDetail" Property="TeamName" Title="Team Name">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="SoccerLeagueTransferApp.Models.ConData.ClubDetail" Property="HomeGround" Title="Home Ground">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="SoccerLeagueTransferApp.Models.ConData.ClubDetail" Property="RegisteredOfficeAddress" Title="Registered Office Address">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="SoccerLeagueTransferApp.Models.ConData.ClubDetail" Property="ContactEmail" Title="Contact Email">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="SoccerLeagueTransferApp.Models.ConData.ClubDetail" Property="ContactTelephone" Title="Contact Telephone">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="SoccerLeagueTransferApp.Models.ConData.ClubDetail" Property="ClubLogo" Title="Club Logo">
+              <Template Context="soccerLeagueTransferAppModelsConDataClubDetail">
+                <RadzenImage Path="@(soccerLeagueTransferAppModelsConDataClubDetail.ClubLogo)" style="height: 50px; width: 50px">
+                </RadzenImage>
+              </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="SoccerLeagueTransferApp.Models.ConData.ClubDetail" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="70px">
+              <Template Context="soccerLeagueTransferAppModelsConDataClubDetail">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, soccerLeagueTransferAppModelsConDataClubDetail))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenGridColumn>
+          </Columns>
+        </RadzenGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

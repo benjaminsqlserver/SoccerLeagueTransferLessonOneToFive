@@ -1,0 +1,270 @@
+{
+  "components": [
+    {
+      "type": "content",
+      "container": "main",
+      "components": [
+        {
+          "type": "row",
+          "components": [
+            {
+              "type": "col",
+              "class": "col-md-12",
+              "components": [
+                {
+                  "type": "template-form",
+                  "name": "form0",
+                  "components": [
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Username",
+                              "component": "Username",
+                              "name": "UsernameLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "string",
+                              "maxLength": 50,
+                              "type": "textbox",
+                              "name": "Username",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${user.Username}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "UsernameRequiredValidator",
+                              "component": "Username",
+                              "text": "Username is required",
+                              "style": {
+                                "position": "absolute"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Password",
+                              "component": "Password",
+                              "name": "PasswordLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "string",
+                              "maxLength": 50,
+                              "type": "textbox",
+                              "name": "Password",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${user.Password}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "PasswordRequiredValidator",
+                              "component": "Password",
+                              "text": "Password is required",
+                              "style": {
+                                "position": "absolute"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Club Detail",
+                              "component": "TeamID",
+                              "name": "TeamIDLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "data": "${getClubDetailsResult}",
+                              "textProperty": "TeamName",
+                              "valueProperty": "TeamID",
+                              "placeholder": "Choose ClubDetail",
+                              "valueType": "int?",
+                              "type": "dropdown",
+                              "name": "TeamID",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "value": "${user.TeamID}"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col offset-sm-3",
+                          "components": [
+                            {
+                              "type": "button",
+                              "buttonType": "submit",
+                              "icon": "save",
+                              "text": "Save",
+                              "buttonStyle": "primary"
+                            },
+                            {
+                              "type": "button",
+                              "buttonStyle": "light",
+                              "text": "Cancel",
+                              "events": {
+                                "click": [
+                                  {
+                                    "type": "close-popup"
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "events": {
+                    "submit": [
+                      {
+                        "error": [
+                          {
+                            "detail": "Unable to update User",
+                            "severity": "error",
+                            "summary": "Error",
+                            "type": "notify"
+                          }
+                        ],
+                        "name": "conData.updateUser",
+                        "parameters": [
+                          {
+                            "name": "UserID",
+                            "value": "${parameters.UserID}"
+                          },
+                          {
+                            "name": "User",
+                            "value": "${user}"
+                          }
+                        ],
+                        "then": [
+                          {
+                            "type": "close-popup",
+                            "result": "${user}"
+                          }
+                        ],
+                        "type": "invoke"
+                      }
+                    ]
+                  },
+                  "itemType": "SoccerLeagueTransferApp.Models.ConData.User",
+                  "data": "${user}",
+                  "visible": "${user != null}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "conData.getUserByUserID",
+        "parameters": [
+          {
+            "name": "UserID",
+            "value": "${parameters.UserID}"
+          }
+        ],
+        "then": [
+          {
+            "name": "user",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "SoccerLeagueTransferApp.Models.ConData.User"
+          }
+        ],
+        "error": [],
+        "type": "invoke"
+      },
+      {
+        "name": "conData.getClubDetails",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getClubDetailsResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<SoccerLeagueTransferApp.Models.ConData.ClubDetail>"
+          }
+        ],
+        "type": "invoke"
+      }
+    ]
+  },
+  "name": "Edit Users",
+  "layout": "Main"
+}

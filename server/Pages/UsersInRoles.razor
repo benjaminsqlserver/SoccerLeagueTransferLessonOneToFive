@@ -1,0 +1,41 @@
+﻿@page "/users-in-roles"
+@layout MainLayout
+@inherits SoccerLeagueTransferApp.Pages.UsersInRolesComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using SoccerLeagueTransferApp.Models.ConData
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="Users In Roles">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@Button0Click">
+        </RadzenButton>
+        <RadzenGrid @ref="grid0" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@getUsersInRolesResult" TItem="SoccerLeagueTransferApp.Models.ConData.UsersInRole" RowSelect="@Grid0RowSelect">
+          <Columns>
+            <RadzenGridColumn TItem="SoccerLeagueTransferApp.Models.ConData.UsersInRole" Property="ID" Title="ID">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="SoccerLeagueTransferApp.Models.ConData.UsersInRole" Property="UserID" SortProperty="User.Username" FilterProperty="User.Username" Title="User">
+              <Template Context="data">
+              @(data.User?.Username)
+              </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="SoccerLeagueTransferApp.Models.ConData.UsersInRole" Property="RoleID" SortProperty="Role.RoleName" FilterProperty="Role.RoleName" Title="Role">
+              <Template Context="data">
+              @(data.Role?.RoleName)
+              </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="SoccerLeagueTransferApp.Models.ConData.UsersInRole" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+              <Template Context="soccerLeagueTransferAppModelsConDataUsersInRole">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, soccerLeagueTransferAppModelsConDataUsersInRole))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenGridColumn>
+          </Columns>
+        </RadzenGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

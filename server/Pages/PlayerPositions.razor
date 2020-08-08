@@ -1,0 +1,33 @@
+﻿@page "/player-positions"
+@layout MainLayout
+@inherits SoccerLeagueTransferApp.Pages.PlayerPositionsComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using SoccerLeagueTransferApp.Models.ConData
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="Player Positions">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@Button0Click">
+        </RadzenButton>
+        <RadzenGrid @ref="grid0" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@getPlayerPositionsResult" TItem="SoccerLeagueTransferApp.Models.ConData.PlayerPosition" RowSelect="@Grid0RowSelect">
+          <Columns>
+            <RadzenGridColumn TItem="SoccerLeagueTransferApp.Models.ConData.PlayerPosition" Property="PositionID" Title="Position ID">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="SoccerLeagueTransferApp.Models.ConData.PlayerPosition" Property="PositionName" Title="Position Name">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="SoccerLeagueTransferApp.Models.ConData.PlayerPosition" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+              <Template Context="soccerLeagueTransferAppModelsConDataPlayerPosition">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, soccerLeagueTransferAppModelsConDataPlayerPosition))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenGridColumn>
+          </Columns>
+        </RadzenGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

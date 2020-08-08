@@ -1,0 +1,99 @@
+﻿@page "/edit-club-detail/{TeamID}"
+@layout MainLayout
+@inherits SoccerLeagueTransferApp.Pages.EditClubDetailComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using SoccerLeagueTransferApp.Models.ConData
+<RadzenContent Container="main">
+  <ChildContent>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenTemplateForm Data="@clubdetail" TItem="SoccerLeagueTransferApp.Models.ConData.ClubDetail" Visible="@(clubdetail != null)" Submit="@Form0Submit">
+          <ChildContent>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="TeamName" style="width: 100%" Text="Team Name">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenTextBox MaxLength="100" style="display: block; width: 100%" @bind-Value="@(clubdetail.TeamName)" Name="TeamName">
+                </RadzenTextBox>
+                <RadzenRequiredValidator Component="TeamName" style="position: absolute" Text="Team Name is required">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="HomeGround" style="width: 100%" Text="Home Ground">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenTextBox MaxLength="50" style="display: block; width: 100%" @bind-Value="@(clubdetail.HomeGround)" Name="HomeGround">
+                </RadzenTextBox>
+                <RadzenRequiredValidator Component="HomeGround" style="position: absolute" Text="Home Ground is required">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="RegisteredOfficeAddress" style="width: 100%" Text="Registered Office Address">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenTextBox style="display: block; width: 100%" @bind-Value="@(clubdetail.RegisteredOfficeAddress)" Name="RegisteredOfficeAddress">
+                </RadzenTextBox>
+                <RadzenRequiredValidator Component="RegisteredOfficeAddress" style="position: absolute" Text="Registered Office Address is required">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="ContactEmail" style="width: 100%" Text="Contact Email">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenTextBox MaxLength="50" style="display: block; width: 100%" @bind-Value="@(clubdetail.ContactEmail)" Name="ContactEmail">
+                </RadzenTextBox>
+                <RadzenRequiredValidator Component="ContactEmail" style="position: absolute" Text="Contact Email is required">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="ContactTelephone" style="width: 100%" Text="Contact Telephone">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenTextBox MaxLength="50" style="display: block; width: 100%" @bind-Value="@(clubdetail.ContactTelephone)" Name="ContactTelephone">
+                </RadzenTextBox>
+                <RadzenRequiredValidator Component="ContactTelephone" style="position: absolute" Text="Contact Telephone is required">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="ClubLogo" style="width: 100%" Text="Club Logo">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenFileInput ChooseText="Upload Club Logo" @bind-Value="@(clubdetail.ClubLogo)" Name="ClubLogo">
+                </RadzenFileInput>
+                <RadzenRequiredValidator Component="ClubLogo" Text="Club Logo Is Required">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col offset-sm-3">
+                <RadzenButton ButtonStyle="ButtonStyle.Primary" ButtonType="ButtonType.Submit" Icon="save" Text="Save">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Cancel" Click="@Button2Click">
+                </RadzenButton>
+              </div>
+            </div>
+          </ChildContent>
+        </RadzenTemplateForm>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

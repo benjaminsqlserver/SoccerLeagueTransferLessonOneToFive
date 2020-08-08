@@ -1,0 +1,51 @@
+﻿@page "/add-users-in-role"
+@layout MainLayout
+@inherits SoccerLeagueTransferApp.Pages.AddUsersInRoleComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using SoccerLeagueTransferApp.Models.ConData
+<RadzenContent Container="main">
+  <ChildContent>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenTemplateForm Data="@usersinrole" Visible="@(usersinrole != null)" TItem="SoccerLeagueTransferApp.Models.ConData.UsersInRole" Submit="@Form0Submit">
+          <ChildContent>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Text="User" Component="UserID" style="width: 100%">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenDropDown Data="@getUsersResult" TextProperty="Username" ValueProperty="UserID" Placeholder="Choose User" style="display: block; width: 100%" @bind-Value="@(usersinrole.UserID)" Name="UserID">
+                </RadzenDropDown>
+                <RadzenRequiredValidator Component="UserID" Text="UserID is required" style="position: absolute" DefaultValue="0">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Text="Role" Component="RoleID" style="width: 100%">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenDropDown Data="@getRolesResult" TextProperty="RoleName" ValueProperty="RoleID" Placeholder="Choose Role" style="display: block; width: 100%" @bind-Value="@(usersinrole.RoleID)" Name="RoleID">
+                </RadzenDropDown>
+                <RadzenRequiredValidator Component="RoleID" Text="RoleID is required" style="position: absolute" DefaultValue="0">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col offset-sm-3">
+                <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Save" ButtonStyle="ButtonStyle.Primary">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Cancel" Click="@Button2Click">
+                </RadzenButton>
+              </div>
+            </div>
+          </ChildContent>
+        </RadzenTemplateForm>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

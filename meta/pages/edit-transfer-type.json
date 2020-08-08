@@ -1,0 +1,163 @@
+{
+  "components": [
+    {
+      "components": [
+        {
+          "components": [
+            {
+              "class": "col-md-12",
+              "components": [
+                {
+                  "components": [
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "TransferTypeName",
+                              "name": "TransferTypeNameLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Transfer Type Name",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "maxLength": 50,
+                              "name": "TransferTypeName",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "type": "textbox",
+                              "value": "${transfertype.TransferTypeName}",
+                              "valueType": "string"
+                            },
+                            {
+                              "component": "TransferTypeName",
+                              "name": "requiredValidator0",
+                              "text": "Transfer Type Is Required",
+                              "type": "required-validator"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col offset-sm-3",
+                          "components": [
+                            {
+                              "buttonStyle": "primary",
+                              "buttonType": "submit",
+                              "icon": "save",
+                              "text": "Save",
+                              "type": "button"
+                            },
+                            {
+                              "buttonStyle": "light",
+                              "events": {
+                                "click": [
+                                  {
+                                    "type": "close-popup"
+                                  }
+                                ]
+                              },
+                              "text": "Cancel",
+                              "type": "button"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "type": "row"
+                    }
+                  ],
+                  "data": "${transfertype}",
+                  "events": {
+                    "submit": [
+                      {
+                        "error": [
+                          {
+                            "detail": "Unable to update TransferType",
+                            "severity": "error",
+                            "summary": "Error",
+                            "type": "notify"
+                          }
+                        ],
+                        "name": "conData.updateTransferType",
+                        "parameters": [
+                          {
+                            "name": "TransferTypeID",
+                            "value": "${parameters.TransferTypeID}"
+                          },
+                          {
+                            "name": "TransferType",
+                            "value": "${transfertype}"
+                          }
+                        ],
+                        "then": [
+                          {
+                            "result": "${transfertype}",
+                            "type": "close-popup"
+                          }
+                        ],
+                        "type": "invoke"
+                      }
+                    ]
+                  },
+                  "itemType": "SoccerLeagueTransferApp.Models.ConData.TransferType",
+                  "name": "form0",
+                  "type": "template-form",
+                  "visible": "${transfertype != null}"
+                }
+              ],
+              "type": "col"
+            }
+          ],
+          "type": "row"
+        }
+      ],
+      "container": "main",
+      "type": "content"
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "error": [],
+        "name": "conData.getTransferTypeByTransferTypeID",
+        "parameters": [
+          {
+            "name": "TransferTypeID",
+            "value": "${parameters.TransferTypeID}"
+          }
+        ],
+        "then": [
+          {
+            "name": "transfertype",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "SoccerLeagueTransferApp.Models.ConData.TransferType"
+          }
+        ],
+        "type": "invoke"
+      }
+    ]
+  },
+  "layout": "Main",
+  "name": "Edit Transfer Type",
+  "access": []
+}

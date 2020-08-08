@@ -1,0 +1,85 @@
+﻿@page "/add-users"
+@layout MainLayout
+@inherits SoccerLeagueTransferApp.Pages.AddUsersComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using SoccerLeagueTransferApp.Models.ConData
+<RadzenContent Container="main">
+  <ChildContent>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenTemplateForm Data="@user" TItem="SoccerLeagueTransferApp.Models.ConData.User" Visible="@(user != null)" Submit="@Form0Submit">
+          <ChildContent>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="Username" style="width: 100%" Text="Username">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenTextBox AutoComplete="false" MaxLength="50" Placeholder="Enter User Name" style="display: block; width: 100%" @bind-Value="@(user.Username)" Name="Username">
+                </RadzenTextBox>
+                <RadzenRequiredValidator Component="Username" style="position: absolute" Text="Username is required">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="Password" style="width: 100%" Text="Password">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenPassword AutoComplete="false" Placeholder="Enter Password" style="width: 100%" @bind-Value="@(user.Password)" Name="Password">
+                </RadzenPassword>
+                <RadzenRequiredValidator Component="Password" Text="Password Is Required">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="ConfirmPassword" style="width: 100%" Text="Confirm Password">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenPassword AutoComplete="false" Placeholder="Re-Enter Password" style="width: 100%" @bind-Value="@confirmPassword" Name="ConfirmPassword">
+                </RadzenPassword>
+                <RadzenRequiredValidator Component="ConfirmPassword" Text="Confirm Password Is Required">
+                </RadzenRequiredValidator>
+                <RadzenCompareValidator Component="ConfirmPassword" Text="The Passwords You Entered Do Not Match" Value="@(user.Password)">
+                </RadzenCompareValidator>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="TeamID" style="width: 100%" Text="Club ">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenDropDown Data="@getClubDetailsResult" Placeholder="Choose Club Detail" style="width: 100%" TextProperty="TeamName" @bind-Value="@(user.TeamID)" ValueProperty="TeamID" Name="TeamID">
+                </RadzenDropDown>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="TeamID" style="width: 100%" Text="User Role(s)">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenDropDown Data="@getRolesResult" Multiple="true" Placeholder="Please Assign Role To User" style="width: 100%" TextProperty="RoleName" @bind-Value="@userRoleNames" ValueProperty="RoleName" Name="UserRoles">
+                </RadzenDropDown>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col offset-sm-3">
+                <RadzenButton ButtonStyle="ButtonStyle.Primary" ButtonType="ButtonType.Submit" Icon="save" Text="Save">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Cancel" Click="@Button2Click">
+                </RadzenButton>
+              </div>
+            </div>
+          </ChildContent>
+        </RadzenTemplateForm>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

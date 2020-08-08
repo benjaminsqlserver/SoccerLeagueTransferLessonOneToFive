@@ -1,0 +1,183 @@
+{
+  "components": [
+    {
+      "components": [
+        {
+          "name": "pageTitle",
+          "size": "H1",
+          "style": {
+            "textAlign": "center"
+          },
+          "text": "Sign In",
+          "type": "heading"
+        },
+        {
+          "components": [
+            {
+              "class": "col-md-12",
+              "components": [
+                {
+                  "components": [
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "Username",
+                              "name": "UsernameLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Username",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "autoComplete": false,
+                              "maxLength": 50,
+                              "name": "Username",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "type": "textbox",
+                              "value": "${user.Username}",
+                              "valueType": "string"
+                            },
+                            {
+                              "component": "Username",
+                              "name": "UsernameRequiredValidator",
+                              "style": {
+                                "position": "absolute"
+                              },
+                              "text": "Username is required",
+                              "type": "required-validator"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "component": "Password",
+                              "name": "PasswordLabel",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "text": "Password",
+                              "type": "label"
+                            }
+                          ],
+                          "type": "col"
+                        },
+                        {
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "name": "Password",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "type": "password",
+                              "value": "${user.Password}"
+                            },
+                            {
+                              "component": "Password",
+                              "name": "requiredValidator0",
+                              "text": "Password is required",
+                              "type": "required-validator"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "type": "row"
+                    },
+                    {
+                      "components": [
+                        {
+                          "class": "col offset-sm-3",
+                          "components": [
+                            {
+                              "buttonStyle": "primary",
+                              "buttonType": "submit",
+                              "icon": "",
+                              "text": "Login",
+                              "type": "button"
+                            },
+                            {
+                              "buttonStyle": "light",
+                              "events": {
+                                "click": [
+                                  {
+                                    "code": "await ResetForm();",
+                                    "type": "execute"
+                                  }
+                                ]
+                              },
+                              "text": "Cancel",
+                              "type": "button"
+                            }
+                          ],
+                          "type": "col"
+                        }
+                      ],
+                      "type": "row"
+                    }
+                  ],
+                  "data": "${user}",
+                  "events": {
+                    "submit": [
+                      {
+                        "code": "await SignInUser();",
+                        "type": "execute"
+                      }
+                    ]
+                  },
+                  "itemType": "SoccerLeagueTransferApp.Models.ConData.User",
+                  "name": "form0",
+                  "type": "template-form",
+                  "visible": "${user != null}"
+                }
+              ],
+              "type": "col"
+            }
+          ],
+          "type": "row"
+        }
+      ],
+      "container": "main",
+      "type": "content"
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "user",
+        "type": "set",
+        "value": "new SoccerLeagueTransferApp.Models.ConData.User(){}",
+        "valueType": "SoccerLeagueTransferApp.Models.ConData.User"
+      }
+    ]
+  },
+  "layout": "Login",
+  "name": "Login"
+}

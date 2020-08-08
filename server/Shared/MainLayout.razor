@@ -1,0 +1,61 @@
+﻿@inherits SoccerLeagueTransferApp.Layouts.MainLayoutComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using SoccerLeagueTransferApp.Models.ConData
+<RadzenDialog />
+<RadzenNotification />
+
+<RadzenHeader>
+  <ChildContent>
+    <div class="row justify-content-start align-items-center">
+      <div class="col-md-6 d-flex align-items-center">
+        <RadzenSidebarToggle Click="@SidebarToggle0Click">
+        </RadzenSidebarToggle>
+        <RadzenLabel Text="SoccerLeagueTransferApp">
+        </RadzenLabel>
+      </div>
+      <div class="col-md-6 text-lg-right">
+      </div>
+    </div>
+  </ChildContent>
+</RadzenHeader>
+<RadzenBody @ref="body0">
+  <ChildContent>
+    <RadzenContentContainer Name="main">
+    @Body
+    </RadzenContentContainer>
+  </ChildContent>
+</RadzenBody>
+<RadzenSidebar @ref="sidebar0">
+  <ChildContent>
+    <RadzenPanelMenu style="height: 100%">
+      <ChildContent>
+        <RadzenPanelMenuItem Text="Genders" Path="genders">
+        </RadzenPanelMenuItem>
+        <RadzenPanelMenuItem Text="Players" Path="players">
+        </RadzenPanelMenuItem>
+        <RadzenPanelMenuItem Text="Player Positions" Path="player-positions">
+        </RadzenPanelMenuItem>
+        <RadzenPanelMenuItem Text="Player Transfers" Path="player-transfers">
+        </RadzenPanelMenuItem>
+        <RadzenPanelMenuItem Text="Roles" Path="roles">
+        </RadzenPanelMenuItem>
+        <RadzenPanelMenuItem Text="Transfer Types" Path="transfer-types">
+        </RadzenPanelMenuItem>
+        <RadzenPanelMenuItem Text="Users In Roles" Path="users-in-roles">
+        </RadzenPanelMenuItem>
+        <RadzenPanelMenuItem Text="Users" Path="users">
+        </RadzenPanelMenuItem>
+        <RadzenPanelMenuItem Text="Club Detail" Path="club-detail">
+        </RadzenPanelMenuItem>
+      </ChildContent>
+    </RadzenPanelMenu>
+  </ChildContent>
+</RadzenSidebar>
+<RadzenFooter>
+  <ChildContent>
+    <RadzenLabel Text="SoccerLeagueTransferApp, Copyright Ⓒ 2020">
+    </RadzenLabel>
+  </ChildContent>
+</RadzenFooter>

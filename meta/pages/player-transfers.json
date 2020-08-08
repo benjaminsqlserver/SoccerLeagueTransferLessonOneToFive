@@ -1,0 +1,211 @@
+{
+  "components": [
+    {
+      "type": "content",
+      "container": "main",
+      "components": [
+        {
+          "type": "heading",
+          "name": "pageTitle",
+          "size": "H1",
+          "text": "Player Transfers"
+        },
+        {
+          "type": "row",
+          "components": [
+            {
+              "type": "col",
+              "class": "col-md-12",
+              "components": [
+                {
+                  "icon": "add_circle_outline",
+                  "name": "button0",
+                  "style": {
+                    "marginBottom": "10px"
+                  },
+                  "text": "Add",
+                  "type": "button",
+                  "events": {
+                    "click": [
+                      {
+                        "path": "add-player-transfer",
+                        "type": "popup",
+                        "then": [
+                          {
+                            "code": "grid0.Reload();",
+                            "type": "execute"
+                          },
+                          {
+                            "code": "await InvokeAsync(() => { StateHasChanged(); });",
+                            "type": "execute"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "grid0",
+                  "allowFiltering": true,
+                  "allowPaging": true,
+                  "allowSorting": true,
+                  "data": "${getPlayerTransfersResult}",
+                  "events": {
+                    "loadData": [],
+                    "rowSelect": [
+                      {
+                        "parameters": [
+                          {
+                            "name": "TransferID",
+                            "value": "${event.TransferID}"
+                          }
+                        ],
+                        "path": "edit-player-transfer",
+                        "type": "popup",
+                        "then": [
+                          {
+                            "code": "await InvokeAsync(() => { StateHasChanged(); });",
+                            "type": "execute"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "title": "",
+                  "columns": [
+                    {
+                      "property": "TransferID",
+                      "title": "Transfer ID"
+                    },
+                    {
+                      "property": "PlayerID",
+                      "sortProperty": "Player.FirstName",
+                      "filterProperty": "Player.FirstName",
+                      "template": "${data.Player?.FirstName}",
+                      "title": "Player"
+                    },
+                    {
+                      "property": "OriginatingClubID",
+                      "sortProperty": "ClubDetail.TeamName",
+                      "filterProperty": "ClubDetail.TeamName",
+                      "template": "${data.ClubDetail?.TeamName}",
+                      "title": "Club Detail"
+                    },
+                    {
+                      "property": "DestinationClubID",
+                      "sortProperty": "ClubDetail1.TeamName",
+                      "filterProperty": "ClubDetail1.TeamName",
+                      "template": "${data.ClubDetail1?.TeamName}",
+                      "title": "Club Detail"
+                    },
+                    {
+                      "property": "TransferDate",
+                      "formatString": "{0:dd/MM/yyyy}",
+                      "title": "Transfer Date"
+                    },
+                    {
+                      "property": "TransferTypeID",
+                      "sortProperty": "TransferType.TransferTypeName",
+                      "filterProperty": "TransferType.TransferTypeName",
+                      "template": "${data.TransferType?.TransferTypeName}",
+                      "title": "Transfer Type"
+                    },
+                    {
+                      "property": "TransferFee",
+                      "title": "Transfer Fee"
+                    },
+                    {
+                      "property": "SignOnFee",
+                      "title": "Sign On Fee"
+                    },
+                    {
+                      "property": "TransferAgent",
+                      "title": "Transfer Agent"
+                    },
+                    {
+                      "property": "AgentFee",
+                      "title": "Agent Fee"
+                    },
+                    {
+                      "filterable": false,
+                      "sortable": false,
+                      "width": "70px",
+                      "textAlign": "center",
+                      "template": [
+                        {
+                          "attributes": [
+                            {
+                              "name": "@onclick:stopPropagation",
+                              "value": true
+                            }
+                          ],
+                          "buttonStyle": "danger",
+                          "icon": "close",
+                          "name": "gridDeleteButton",
+                          "text": "",
+                          "size": "sm",
+                          "type": "button",
+                          "events": {
+                            "click": [
+                              {
+                                "error": [
+                                  {
+                                    "detail": "Unable to delete PlayerTransfer",
+                                    "severity": "error",
+                                    "summary": "Error",
+                                    "type": "notify"
+                                  }
+                                ],
+                                "name": "conData.deletePlayerTransfer",
+                                "parameters": [
+                                  {
+                                    "name": "TransferID",
+                                    "value": "${data.TransferID}"
+                                  }
+                                ],
+                                "then": [
+                                  {
+                                    "code": "grid0.Reload();",
+                                    "condition": "result != null",
+                                    "type": "execute"
+                                  }
+                                ],
+                                "type": "invoke"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "type": "grid",
+                  "itemType": "SoccerLeagueTransferApp.Models.ConData.PlayerTransfer"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "conData.getPlayerTransfers",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getPlayerTransfersResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<SoccerLeagueTransferApp.Models.ConData.PlayerTransfer>"
+          }
+        ],
+        "type": "invoke"
+      }
+    ]
+  },
+  "name": "Player Transfers",
+  "layout": "Main",
+  "access": []
+}

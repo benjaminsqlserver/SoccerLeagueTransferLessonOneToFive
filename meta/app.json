@@ -1,0 +1,65 @@
+{
+  "dataSources": [
+    "conData"
+  ],
+  "generator": "@radzen/blazor-server",
+  "https": false,
+  "ignore": [
+    "\\server\\Startup.cs",
+    "\\server\\Data\\CustomAuthenticationStateProvider.cs"
+  ],
+  "layouts": [
+    "Login",
+    "Main"
+  ],
+  "logo": "",
+  "name": "SoccerLeagueTransferApp",
+  "navigation": [
+    "Genders",
+    "Players",
+    "Player Positions",
+    "Player Transfers",
+    "Roles",
+    "Transfer Types",
+    "Users In Roles",
+    "Users",
+    "Club Detail"
+  ],
+  "pages": [
+    "Genders",
+    "Add Gender",
+    "Edit Gender",
+    "Players",
+    "Add Player",
+    "Edit Player",
+    "Player Positions",
+    "Add Player Position",
+    "Edit Player Position",
+    "Player Transfers",
+    "Add Player Transfer",
+    "Edit Player Transfer",
+    "Roles",
+    "Add Role",
+    "Edit Role",
+    "Transfer Types",
+    "Add Transfer Type",
+    "Edit Transfer Type",
+    "Users In Roles",
+    "Add Users In Role",
+    "Edit Users In Role",
+    "Login",
+    "Users",
+    "Add Users",
+    "Edit Users",
+    "Club Detail",
+    "Add Club Detail",
+    "Edit Club Detail"
+  ],
+  "port": 8000,
+  "serverLang": "cs",
+  "serverPort": 5000,
+  "serverProject": true,
+  "serverVersion": "3",
+  "startPage": "Club Detail",
+  "theme": "default"
+}

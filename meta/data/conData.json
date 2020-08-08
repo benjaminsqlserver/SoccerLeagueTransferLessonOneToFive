@@ -1,0 +1,2158 @@
+{
+  "info": {
+    "title": "conData",
+    "x-type": "odata",
+    "x-connector": "mssql",
+    "x-connector-version": 15
+  },
+  "definitions": {
+    "ClubDetail": {
+      "x-table": "dbo.ClubDetails",
+      "resource": "ClubDetails",
+      "required": [
+        "TeamName",
+        "HomeGround",
+        "RegisteredOfficeAddress",
+        "ContactEmail",
+        "ContactTelephone",
+        "ClubLogo"
+      ],
+      "properties": {
+        "TeamID": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "type": "integer",
+          "x-navigation": [
+            {
+              "inversePropertyName": "ClubDetail",
+              "name": "Players",
+              "type": "Player"
+            },
+            {
+              "inversePropertyName": "ClubDetail",
+              "name": "PlayerTransfers",
+              "type": "PlayerTransfer"
+            },
+            {
+              "inversePropertyName": "ClubDetail1",
+              "name": "PlayerTransfers1",
+              "type": "PlayerTransfer"
+            },
+            {
+              "inversePropertyName": "ClubDetail",
+              "name": "Users",
+              "type": "User"
+            }
+          ]
+        },
+        "TeamName": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 100
+        },
+        "HomeGround": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 50
+        },
+        "RegisteredOfficeAddress": {
+          "x-nullable": false,
+          "type": "string"
+        },
+        "ContactEmail": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 50
+        },
+        "ContactTelephone": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 50
+        },
+        "ClubLogo": {
+          "x-nullable": false,
+          "type": "string"
+        },
+        "Players": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Player"
+          }
+        },
+        "PlayerTransfers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PlayerTransfer"
+          }
+        },
+        "Users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/User"
+          }
+        }
+      }
+    },
+    "Gender": {
+      "x-table": "dbo.Genders",
+      "resource": "Genders",
+      "required": [],
+      "properties": {
+        "GenderID": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "type": "integer",
+          "x-navigation": [
+            {
+              "inversePropertyName": "Gender",
+              "name": "Players",
+              "type": "Player"
+            }
+          ]
+        },
+        "GenderName": {
+          "type": "string",
+          "length": 50
+        },
+        "Players": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Player"
+          }
+        }
+      }
+    },
+    "GetUserRole": {
+      "x-view": "sp",
+      "x-table": "dbo.GetUserRoles",
+      "x-parameters": [
+        {
+          "name": "UserID",
+          "type": "integer"
+        }
+      ],
+      "resource": "GetUserRoles",
+      "required": [
+        "RoleName"
+      ],
+      "properties": {
+        "RoleName": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 100,
+          "x-key": true,
+          "x-virtual": true
+        }
+      }
+    },
+    "Player": {
+      "x-table": "dbo.Players",
+      "resource": "Players",
+      "required": [
+        "FirstName",
+        "Surname",
+        "GenderID",
+        "PlayerPhoto",
+        "ContactEmail",
+        "ContactPhone",
+        "PositionID"
+      ],
+      "properties": {
+        "PlayerID": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "type": "integer",
+          "x-navigation": [
+            {
+              "inversePropertyName": "Player",
+              "name": "PlayerTransfers",
+              "type": "PlayerTransfer"
+            }
+          ]
+        },
+        "FirstName": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 50
+        },
+        "MiddleName": {
+          "type": "string",
+          "length": 50
+        },
+        "Surname": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 50
+        },
+        "Gender": {
+          "type": "object",
+          "$ref": "#/definitions/Gender"
+        },
+        "GenderID": {
+          "x-nullable": false,
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "Genders",
+            "parentEntityType": "Gender",
+            "type": "Gender",
+            "principalKey": "GenderID",
+            "name": "Gender",
+            "textProperty": "GenderName",
+            "navigationProperty": "Players"
+          }
+        },
+        "ClubDetail": {
+          "type": "object",
+          "$ref": "#/definitions/ClubDetail"
+        },
+        "CurrentClubID": {
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "ClubDetails",
+            "parentEntityType": "ClubDetail",
+            "type": "ClubDetail",
+            "principalKey": "TeamID",
+            "name": "ClubDetail",
+            "textProperty": "TeamName",
+            "navigationProperty": "Players"
+          }
+        },
+        "PlayerPhoto": {
+          "x-nullable": false,
+          "type": "string"
+        },
+        "ContactEmail": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 50
+        },
+        "ContactPhone": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 50
+        },
+        "PlayerPosition": {
+          "type": "object",
+          "$ref": "#/definitions/PlayerPosition"
+        },
+        "PositionID": {
+          "x-nullable": false,
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "PlayerPositions",
+            "parentEntityType": "PlayerPosition",
+            "type": "PlayerPosition",
+            "principalKey": "PositionID",
+            "name": "PlayerPosition",
+            "textProperty": "PositionName",
+            "navigationProperty": "Players"
+          }
+        },
+        "PlayerTransfers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PlayerTransfer"
+          }
+        }
+      }
+    },
+    "PlayerPosition": {
+      "x-table": "dbo.PlayerPositions",
+      "resource": "PlayerPositions",
+      "required": [
+        "PositionName"
+      ],
+      "properties": {
+        "PositionID": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "type": "integer",
+          "x-navigation": [
+            {
+              "inversePropertyName": "PlayerPosition",
+              "name": "Players",
+              "type": "Player"
+            }
+          ]
+        },
+        "PositionName": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 50
+        },
+        "Players": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Player"
+          }
+        }
+      }
+    },
+    "PlayerTransfer": {
+      "x-table": "dbo.PlayerTransfers",
+      "resource": "PlayerTransfers",
+      "required": [
+        "PlayerID",
+        "DestinationClubID",
+        "TransferDate",
+        "TransferTypeID",
+        "SignOnFee",
+        "TransferAgent",
+        "AgentFee"
+      ],
+      "properties": {
+        "TransferID": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "type": "integer"
+        },
+        "Player": {
+          "type": "object",
+          "$ref": "#/definitions/Player"
+        },
+        "PlayerID": {
+          "x-nullable": false,
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "Players",
+            "parentEntityType": "Player",
+            "type": "Player",
+            "principalKey": "PlayerID",
+            "name": "Player",
+            "textProperty": "FirstName",
+            "navigationProperty": "PlayerTransfers"
+          }
+        },
+        "ClubDetail": {
+          "type": "object",
+          "$ref": "#/definitions/ClubDetail"
+        },
+        "OriginatingClubID": {
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "ClubDetails",
+            "parentEntityType": "ClubDetail",
+            "type": "ClubDetail",
+            "principalKey": "TeamID",
+            "name": "ClubDetail",
+            "textProperty": "TeamName",
+            "navigationProperty": "PlayerTransfers"
+          }
+        },
+        "ClubDetail1": {
+          "type": "object",
+          "$ref": "#/definitions/ClubDetail"
+        },
+        "DestinationClubID": {
+          "x-nullable": false,
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "ClubDetails",
+            "parentEntityType": "ClubDetail",
+            "type": "ClubDetail",
+            "principalKey": "TeamID",
+            "name": "ClubDetail1",
+            "textProperty": "TeamName",
+            "navigationProperty": "PlayerTransfers1"
+          }
+        },
+        "TransferDate": {
+          "x-nullable": false,
+          "type": "string",
+          "format": "date-time",
+          "x-datetime": "datetime"
+        },
+        "TransferType": {
+          "type": "object",
+          "$ref": "#/definitions/TransferType"
+        },
+        "TransferTypeID": {
+          "x-nullable": false,
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "TransferTypes",
+            "parentEntityType": "TransferType",
+            "type": "TransferType",
+            "principalKey": "TransferTypeID",
+            "name": "TransferType",
+            "textProperty": "TransferTypeName",
+            "navigationProperty": "PlayerTransfers"
+          }
+        },
+        "TransferFee": {
+          "type": "number",
+          "format": "decimal"
+        },
+        "SignOnFee": {
+          "x-nullable": false,
+          "type": "number",
+          "format": "decimal"
+        },
+        "TransferAgent": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 200
+        },
+        "AgentFee": {
+          "x-nullable": false,
+          "type": "number",
+          "format": "decimal"
+        }
+      }
+    },
+    "Role": {
+      "x-table": "dbo.Roles",
+      "resource": "Roles",
+      "required": [
+        "RoleName"
+      ],
+      "properties": {
+        "RoleID": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "type": "integer",
+          "x-navigation": [
+            {
+              "inversePropertyName": "Role",
+              "name": "UsersInRoles",
+              "type": "UsersInRole"
+            }
+          ]
+        },
+        "RoleName": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 50
+        },
+        "UsersInRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UsersInRole"
+          }
+        }
+      }
+    },
+    "TransferType": {
+      "x-table": "dbo.TransferTypes",
+      "resource": "TransferTypes",
+      "required": [],
+      "properties": {
+        "TransferTypeID": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "type": "integer",
+          "x-navigation": [
+            {
+              "inversePropertyName": "TransferType",
+              "name": "PlayerTransfers",
+              "type": "PlayerTransfer"
+            }
+          ]
+        },
+        "TransferTypeName": {
+          "type": "string",
+          "length": 50
+        },
+        "PlayerTransfers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PlayerTransfer"
+          }
+        }
+      }
+    },
+    "User": {
+      "x-table": "dbo.Users",
+      "resource": "Users",
+      "required": [
+        "Username",
+        "Password"
+      ],
+      "properties": {
+        "UserID": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "type": "integer",
+          "x-navigation": [
+            {
+              "inversePropertyName": "User",
+              "name": "UsersInRoles",
+              "type": "UsersInRole"
+            }
+          ]
+        },
+        "Username": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 50
+        },
+        "Password": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 50
+        },
+        "ClubDetail": {
+          "type": "object",
+          "$ref": "#/definitions/ClubDetail"
+        },
+        "TeamID": {
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "ClubDetails",
+            "parentEntityType": "ClubDetail",
+            "type": "ClubDetail",
+            "principalKey": "TeamID",
+            "name": "ClubDetail",
+            "textProperty": "TeamName",
+            "navigationProperty": "Users"
+          }
+        },
+        "UsersInRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UsersInRole"
+          }
+        }
+      }
+    },
+    "UsersInRole": {
+      "x-table": "dbo.UsersInRoles",
+      "resource": "UsersInRoles",
+      "required": [
+        "UserID",
+        "RoleID"
+      ],
+      "properties": {
+        "ID": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "type": "integer"
+        },
+        "User": {
+          "type": "object",
+          "$ref": "#/definitions/User"
+        },
+        "UserID": {
+          "x-nullable": false,
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "Users",
+            "parentEntityType": "User",
+            "type": "User",
+            "principalKey": "UserID",
+            "name": "User",
+            "textProperty": "Username",
+            "navigationProperty": "UsersInRoles"
+          }
+        },
+        "Role": {
+          "type": "object",
+          "$ref": "#/definitions/Role"
+        },
+        "RoleID": {
+          "x-nullable": false,
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "Roles",
+            "parentEntityType": "Role",
+            "type": "Role",
+            "principalKey": "RoleID",
+            "name": "Role",
+            "textProperty": "RoleName",
+            "navigationProperty": "UsersInRoles"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/ClubDetails": {
+      "get": {
+        "operationId": "getClubDetails",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/ClubDetail"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createClubDetail",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "ClubDetail",
+            "schema": {
+              "$ref": "#/definitions/ClubDetail"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/ClubDetail"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Genders": {
+      "get": {
+        "operationId": "getGenders",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/Gender"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createGender",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Gender",
+            "schema": {
+              "$ref": "#/definitions/Gender"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/Gender"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/GetUserRolesFunc(UserID={UserID})": {
+      "get": {
+        "operationId": "getGetUserRoles",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "UserID",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/GetUserRole"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Players": {
+      "get": {
+        "operationId": "getPlayers",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/Player"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createPlayer",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Player",
+            "schema": {
+              "$ref": "#/definitions/Player"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/Player"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/PlayerPositions": {
+      "get": {
+        "operationId": "getPlayerPositions",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/PlayerPosition"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createPlayerPosition",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "PlayerPosition",
+            "schema": {
+              "$ref": "#/definitions/PlayerPosition"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/PlayerPosition"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/PlayerTransfers": {
+      "get": {
+        "operationId": "getPlayerTransfers",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/PlayerTransfer"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createPlayerTransfer",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "PlayerTransfer",
+            "schema": {
+              "$ref": "#/definitions/PlayerTransfer"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/PlayerTransfer"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Roles": {
+      "get": {
+        "operationId": "getRoles",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/Role"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createRole",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Role",
+            "schema": {
+              "$ref": "#/definitions/Role"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/Role"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/TransferTypes": {
+      "get": {
+        "operationId": "getTransferTypes",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/TransferType"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createTransferType",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "TransferType",
+            "schema": {
+              "$ref": "#/definitions/TransferType"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/TransferType"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Users": {
+      "get": {
+        "operationId": "getUsers",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/User"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createUser",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "User",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/UsersInRoles": {
+      "get": {
+        "operationId": "getUsersInRoles",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/UsersInRole"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createUsersInRole",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "UsersInRole",
+            "schema": {
+              "$ref": "#/definitions/UsersInRole"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/UsersInRole"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/ClubDetails({TeamID})": {
+      "delete": {
+        "operationId": "deleteClubDetail",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "TeamID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getClubDetailByTeamID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "TeamID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/ClubDetail"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateClubDetail",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "TeamID",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "ClubDetail",
+            "schema": {
+              "$ref": "#/definitions/ClubDetail"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "cancel": {
+        "operationId": "cancelClubDetailChanges",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "ClubDetail",
+            "schema": {
+              "$ref": "#/definitions/ClubDetail"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Genders({GenderID})": {
+      "delete": {
+        "operationId": "deleteGender",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "GenderID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getGenderByGenderID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "GenderID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Gender"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateGender",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "GenderID",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "Gender",
+            "schema": {
+              "$ref": "#/definitions/Gender"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "cancel": {
+        "operationId": "cancelGenderChanges",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Gender",
+            "schema": {
+              "$ref": "#/definitions/Gender"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Players({PlayerID})": {
+      "delete": {
+        "operationId": "deletePlayer",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "PlayerID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getPlayerByPlayerID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "PlayerID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Player"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updatePlayer",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "PlayerID",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "Player",
+            "schema": {
+              "$ref": "#/definitions/Player"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "cancel": {
+        "operationId": "cancelPlayerChanges",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Player",
+            "schema": {
+              "$ref": "#/definitions/Player"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/PlayerPositions({PositionID})": {
+      "delete": {
+        "operationId": "deletePlayerPosition",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "PositionID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getPlayerPositionByPositionID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "PositionID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/PlayerPosition"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updatePlayerPosition",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "PositionID",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "PlayerPosition",
+            "schema": {
+              "$ref": "#/definitions/PlayerPosition"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "cancel": {
+        "operationId": "cancelPlayerPositionChanges",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "PlayerPosition",
+            "schema": {
+              "$ref": "#/definitions/PlayerPosition"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/PlayerTransfers({TransferID})": {
+      "delete": {
+        "operationId": "deletePlayerTransfer",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "TransferID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getPlayerTransferByTransferID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "TransferID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/PlayerTransfer"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updatePlayerTransfer",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "TransferID",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "PlayerTransfer",
+            "schema": {
+              "$ref": "#/definitions/PlayerTransfer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "cancel": {
+        "operationId": "cancelPlayerTransferChanges",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "PlayerTransfer",
+            "schema": {
+              "$ref": "#/definitions/PlayerTransfer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Roles({RoleID})": {
+      "delete": {
+        "operationId": "deleteRole",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "RoleID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getRoleByRoleID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "RoleID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Role"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateRole",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "RoleID",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "Role",
+            "schema": {
+              "$ref": "#/definitions/Role"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "cancel": {
+        "operationId": "cancelRoleChanges",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Role",
+            "schema": {
+              "$ref": "#/definitions/Role"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/TransferTypes({TransferTypeID})": {
+      "delete": {
+        "operationId": "deleteTransferType",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "TransferTypeID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getTransferTypeByTransferTypeID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "TransferTypeID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/TransferType"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateTransferType",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "TransferTypeID",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "TransferType",
+            "schema": {
+              "$ref": "#/definitions/TransferType"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "cancel": {
+        "operationId": "cancelTransferTypeChanges",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "TransferType",
+            "schema": {
+              "$ref": "#/definitions/TransferType"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Users({UserID})": {
+      "delete": {
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "UserID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getUserByUserID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "UserID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "UserID",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "User",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "cancel": {
+        "operationId": "cancelUserChanges",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "User",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/UsersInRoles({ID})": {
+      "delete": {
+        "operationId": "deleteUsersInRole",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getUsersInRoleByID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/UsersInRole"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateUsersInRole",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ID",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "UsersInRole",
+            "schema": {
+              "$ref": "#/definitions/UsersInRole"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "cancel": {
+        "operationId": "cancelUsersInRoleChanges",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "UsersInRole",
+            "schema": {
+              "$ref": "#/definitions/UsersInRole"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "basePath": "/odata/conData",
+  "host": "localhost:5000",
+  "schemes": [
+    "http"
+  ]
+}

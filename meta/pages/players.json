@@ -1,0 +1,207 @@
+{
+  "components": [
+    {
+      "type": "content",
+      "container": "main",
+      "components": [
+        {
+          "type": "heading",
+          "name": "pageTitle",
+          "size": "H1",
+          "text": "Players"
+        },
+        {
+          "type": "row",
+          "components": [
+            {
+              "type": "col",
+              "class": "col-md-12",
+              "components": [
+                {
+                  "icon": "add_circle_outline",
+                  "name": "button0",
+                  "style": {
+                    "marginBottom": "10px"
+                  },
+                  "text": "Add",
+                  "type": "button",
+                  "events": {
+                    "click": [
+                      {
+                        "path": "add-player",
+                        "type": "popup",
+                        "then": [
+                          {
+                            "code": "grid0.Reload();",
+                            "type": "execute"
+                          },
+                          {
+                            "code": "await InvokeAsync(() => { StateHasChanged(); });",
+                            "type": "execute"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "grid0",
+                  "allowFiltering": true,
+                  "allowPaging": true,
+                  "allowSorting": true,
+                  "data": "${getPlayersResult}",
+                  "events": {
+                    "loadData": [],
+                    "rowSelect": [
+                      {
+                        "parameters": [
+                          {
+                            "name": "PlayerID",
+                            "value": "${event.PlayerID}"
+                          }
+                        ],
+                        "path": "edit-player",
+                        "type": "popup",
+                        "then": [
+                          {
+                            "code": "await InvokeAsync(() => { StateHasChanged(); });",
+                            "type": "execute"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "title": "",
+                  "columns": [
+                    {
+                      "property": "PlayerID",
+                      "title": "Player ID"
+                    },
+                    {
+                      "property": "FirstName",
+                      "title": "First Name"
+                    },
+                    {
+                      "property": "MiddleName",
+                      "title": "Middle Name"
+                    },
+                    {
+                      "property": "Surname",
+                      "title": "Surname"
+                    },
+                    {
+                      "property": "GenderID",
+                      "sortProperty": "Gender.GenderName",
+                      "filterProperty": "Gender.GenderName",
+                      "template": "${data.Gender?.GenderName}",
+                      "title": "Gender"
+                    },
+                    {
+                      "property": "CurrentClubID",
+                      "sortProperty": "ClubDetail.TeamName",
+                      "filterProperty": "ClubDetail.TeamName",
+                      "template": "${data.ClubDetail?.TeamName}",
+                      "title": "Club Detail"
+                    },
+                    {
+                      "property": "PlayerPhoto",
+                      "title": "Player Photo"
+                    },
+                    {
+                      "property": "ContactEmail",
+                      "title": "Contact Email"
+                    },
+                    {
+                      "property": "ContactPhone",
+                      "title": "Contact Phone"
+                    },
+                    {
+                      "property": "PositionID",
+                      "sortProperty": "PlayerPosition.PositionName",
+                      "filterProperty": "PlayerPosition.PositionName",
+                      "template": "${data.PlayerPosition?.PositionName}",
+                      "title": "Player Position"
+                    },
+                    {
+                      "filterable": false,
+                      "sortable": false,
+                      "width": "70px",
+                      "textAlign": "center",
+                      "template": [
+                        {
+                          "attributes": [
+                            {
+                              "name": "@onclick:stopPropagation",
+                              "value": true
+                            }
+                          ],
+                          "buttonStyle": "danger",
+                          "icon": "close",
+                          "name": "gridDeleteButton",
+                          "text": "",
+                          "size": "sm",
+                          "type": "button",
+                          "events": {
+                            "click": [
+                              {
+                                "error": [
+                                  {
+                                    "detail": "Unable to delete Player",
+                                    "severity": "error",
+                                    "summary": "Error",
+                                    "type": "notify"
+                                  }
+                                ],
+                                "name": "conData.deletePlayer",
+                                "parameters": [
+                                  {
+                                    "name": "PlayerID",
+                                    "value": "${data.PlayerID}"
+                                  }
+                                ],
+                                "then": [
+                                  {
+                                    "code": "grid0.Reload();",
+                                    "condition": "result != null",
+                                    "type": "execute"
+                                  }
+                                ],
+                                "type": "invoke"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "type": "grid",
+                  "itemType": "SoccerLeagueTransferApp.Models.ConData.Player"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "conData.getPlayers",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getPlayersResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<SoccerLeagueTransferApp.Models.ConData.Player>"
+          }
+        ],
+        "type": "invoke"
+      }
+    ]
+  },
+  "name": "Players",
+  "layout": "Main",
+  "access": []
+}

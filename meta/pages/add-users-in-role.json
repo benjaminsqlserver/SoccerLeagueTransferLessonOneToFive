@@ -1,0 +1,233 @@
+{
+  "components": [
+    {
+      "type": "content",
+      "container": "main",
+      "components": [
+        {
+          "type": "row",
+          "components": [
+            {
+              "type": "col",
+              "class": "col-md-12",
+              "components": [
+                {
+                  "type": "template-form",
+                  "name": "form0",
+                  "components": [
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "User",
+                              "component": "UserID",
+                              "name": "UserIDLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "data": "${getUsersResult}",
+                              "textProperty": "Username",
+                              "valueProperty": "UserID",
+                              "placeholder": "Choose User",
+                              "valueType": "int",
+                              "type": "dropdown",
+                              "name": "UserID",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${usersinrole.UserID}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "UserIDRequiredValidator",
+                              "component": "UserID",
+                              "text": "UserID is required",
+                              "style": {
+                                "position": "absolute"
+                              },
+                              "defaultValue": "0"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Role",
+                              "component": "RoleID",
+                              "name": "RoleIDLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "data": "${getRolesResult}",
+                              "textProperty": "RoleName",
+                              "valueProperty": "RoleID",
+                              "placeholder": "Choose Role",
+                              "valueType": "int",
+                              "type": "dropdown",
+                              "name": "RoleID",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${usersinrole.RoleID}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "RoleIDRequiredValidator",
+                              "component": "RoleID",
+                              "text": "RoleID is required",
+                              "style": {
+                                "position": "absolute"
+                              },
+                              "defaultValue": "0"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col offset-sm-3",
+                          "components": [
+                            {
+                              "type": "button",
+                              "buttonType": "submit",
+                              "icon": "save",
+                              "text": "Save",
+                              "buttonStyle": "primary"
+                            },
+                            {
+                              "type": "button",
+                              "buttonStyle": "light",
+                              "text": "Cancel",
+                              "events": {
+                                "click": [
+                                  {
+                                    "type": "close-popup"
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "events": {
+                    "submit": [
+                      {
+                        "error": [
+                          {
+                            "detail": "Unable to create new UsersInRole!",
+                            "severity": "error",
+                            "summary": "Error",
+                            "type": "notify"
+                          }
+                        ],
+                        "name": "conData.createUsersInRole",
+                        "parameters": [
+                          {
+                            "name": "UsersInRole",
+                            "value": "${usersinrole}"
+                          }
+                        ],
+                        "then": [
+                          {
+                            "type": "close-popup",
+                            "result": "${usersinrole}"
+                          }
+                        ],
+                        "type": "invoke"
+                      }
+                    ]
+                  },
+                  "data": "${usersinrole}",
+                  "visible": "${usersinrole != null}",
+                  "itemType": "SoccerLeagueTransferApp.Models.ConData.UsersInRole"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "conData.getUsers",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getUsersResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<SoccerLeagueTransferApp.Models.ConData.User>"
+          }
+        ],
+        "type": "invoke"
+      },
+      {
+        "name": "conData.getRoles",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getRolesResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<SoccerLeagueTransferApp.Models.ConData.Role>"
+          }
+        ],
+        "type": "invoke"
+      },
+      {
+        "name": "usersinrole",
+        "type": "set",
+        "value": "new SoccerLeagueTransferApp.Models.ConData.UsersInRole(){}",
+        "valueType": "SoccerLeagueTransferApp.Models.ConData.UsersInRole"
+      }
+    ]
+  },
+  "name": "Add Users In Role",
+  "layout": "Main",
+  "access": []
+}
