@@ -9,5 +9,4 @@ Run the query in SQL Server management studio
 
 Open appsettings.json and change the conDataConnection strings property to your own database settings.
 
-Open and run the project in visual studio 2019 that has ASP.NET and web development workload already installed
-
+Open and run the project in visual studio 2019 that has .NET Core 3.1 SDK  already installed
